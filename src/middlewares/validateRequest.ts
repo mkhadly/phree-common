@@ -1,7 +1,7 @@
 import { validationResult } from 'express-validator'
+import * as express from 'express'
 
-
-const performValidation = (req, res, next) => {
+const performValidation = (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const errorMessage = errors.array()[0]["msg"]
