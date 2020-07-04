@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose'
 import * as express from 'express'
-import { DBConfig } from '../../types/general'
+import { DBConfig } from '../types/general'
 
 export default async (app: express.Application, config: DBConfig) => {
     try {
