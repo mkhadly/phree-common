@@ -10,6 +10,8 @@ const initDB = async (app: express.Application, config: DBConfig) => {
         console.log("Connected to DB")
     } catch (e) {
         console.log(e)
+        console.log("TERMINATING NOW...")
+        process.exit(1)
     }
 }
 
