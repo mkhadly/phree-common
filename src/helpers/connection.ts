@@ -1,6 +1,6 @@
 // @ts-ignore
 
-import * as mongoose from 'mongoose'
+import mongoose from 'mongoose'
 import * as express from 'express'
 import { DBConfig } from '../types/general'
 
