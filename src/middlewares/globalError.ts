@@ -1,8 +1,8 @@
-import CustomError from '../errors/customError'
+import { CustomError } from '../errors/customError'
 import * as express from 'express'
 
 
-const globalErrorHandler = (err:Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+const globalErrorHandler = (err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.log(process.env.NODE_ENV)
     if (err) {
         if (err instanceof CustomError) {
@@ -21,4 +21,4 @@ const globalErrorHandler = (err:Error, req: express.Request, res: express.Respon
     }
 }
 
-export default globalErrorHandler
+export { globalErrorHandler }

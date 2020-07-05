@@ -10,4 +10,4 @@ const performValidation = (req: express.Request, res: express.Response, next: ex
     next()
 }
 
-export default performValidation
+export { performValidation }
