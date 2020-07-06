@@ -6,8 +6,10 @@ export enum LOGIN_METHODS {
 
 export enum ADMINISTRATION_LVL {
     NONE,
-    BASIC,
-    FULL
+    CREATOR,
+    MODERATOR,
+    ADMIN,
+    SUPER_ADMIN
 }
 
 export interface UserToken {
