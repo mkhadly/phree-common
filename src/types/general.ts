@@ -12,6 +12,14 @@ export enum ADMINISTRATION_LVL {
     SUPER_ADMIN
 }
 
+export enum Services {
+    AUTH_SERVICE = 'auth-service',
+    USER_SERVICE = 'user-service',
+    MODEL_SERVICE = 'model-service',
+    SUBSCRIPTION_SERVICE = 'subscription-service',
+    SERVING_SERVICE = 'serving-service'
+}
+
 export interface UserToken {
     id: string,
     email: string,
@@ -21,8 +29,8 @@ export interface UserToken {
     admin_lvl: ADMINISTRATION_LVL
 }
 
-export interface DBConfig{
-    host:string,
-    port:string,
-    db:string
+export interface DBConfig {
+    host: string,
+    port: string,
+    db: string
 }
