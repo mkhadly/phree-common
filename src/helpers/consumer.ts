@@ -59,6 +59,9 @@ export class ConsumerClient {
      * @param handler topic callback
      */
     public async listen(topic: Topic, handler: Function) {
+        if (!(this.topics.includes(topic)))
+            throw new Error("[CONSUMER] Error try to handle a non-subscribed topic")
+
         try {
             await (this.consumer as any).run({
                 eachMessage: this.eachMsgHandler.bind(null, handler, topic),
@@ -84,7 +87,7 @@ export class ConsumerClient {
         })
         if (msgTopic == topic) {
             console.log("Handler Called")
-            handler()
+            handler(JSON.parse(message.value.toString()))
         }
 
 
