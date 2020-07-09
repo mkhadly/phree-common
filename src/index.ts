@@ -5,6 +5,7 @@ export * from './helpers/connection'
 export * from './helpers/jwt'
 export * from './helpers/producer'
 export * from './helpers/consumer'
+export * from './helpers/admin'
 
 export * from './errors/customError'
 
