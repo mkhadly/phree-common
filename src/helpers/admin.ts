@@ -26,33 +26,35 @@ export class AdminClient {
         //define admin cient
         this.admin = (this.kafka as any).admin()
 
+
+
     }
 
-/**
- * - Connect the client to Kafka cluster
- * - Create all topics
- * @param replicationFactor 
- * @param numPartition 
- */
-    public async seedTopics(replicationFactor = 1, numPartition = 3) {
+    /**
+     * - Connect the client to Kafka cluster
+     * - Create all topics
+     * @param replicationFactor 
+     * @param numPartition 
+     */
+    public async seedTopics(replicationFactor = 1, numPartition = 3, validateOnly = false) {
         try {
             const allTopics = Object.values(Topic).map(topic => Object({
                 topic,
                 numPartition,
                 replicationFactor
             }))
-              
-            
+
             //connect to cluster
             await (this.admin as any).connect()
-            
+
             //create topics
-            await (this.admin as any).createTopics({
+            const topicsCreated = await (this.admin as any).createTopics({
                 waitForLeaders: true,
+                validateOnly,
                 topics: allTopics
             });
 
-            return await (this.admin as any).listTopics()
+            return topicsCreated
         }
         catch (e) {
             console.log(e)
