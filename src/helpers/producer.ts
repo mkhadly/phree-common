@@ -16,7 +16,7 @@ export class ProducerClient {
      */
     constructor(public serviceName: Services) {
 
-        this.clientId = serviceName + "-" + uid(4)
+        this.clientId = "producer-" + (process.env.POD_NAME as string)
         const brokers = (process.env.KAFKA_BROKERS as any).split(" ")
 
         this.kafka = new Kafka({

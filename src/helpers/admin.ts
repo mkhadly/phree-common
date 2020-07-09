@@ -15,7 +15,8 @@ export class AdminClient {
      */
     constructor() {
 
-        const clientId = "admin-" + uid(4)
+        const clientId = "admin-" + (process.env.POD_NAME as string)
+
         const brokers = (process.env.KAFKA_BROKERS as any).split(" ")
 
         this.kafka = new Kafka({
