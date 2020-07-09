@@ -23,6 +23,9 @@ export class AdminClient {
             brokers: brokers
         })
 
+        //define admin cient
+        this.admin = (this.kafka as any).admin()
+
     }
 
 /**
@@ -38,9 +41,7 @@ export class AdminClient {
                 numPartition,
                 replicationFactor
             }))
-            
-            //define admin cient
-            this.admin = (this.kafka as any).admin()
+              
             
             //connect to cluster
             await (this.admin as any).connect()
@@ -50,6 +51,8 @@ export class AdminClient {
                 waitForLeaders: true,
                 topics: allTopics
             });
+
+            return await (this.admin as any).listTopics()
         }
         catch (e) {
             console.log(e)

@@ -22,6 +22,7 @@ export class ProducerClient {
             brokers: brokers
         })
 
+        this.producer = (this.kafka as any).producer()
     }
 
     /**
@@ -29,7 +30,7 @@ export class ProducerClient {
      */
     public async init() {
         try {
-            this.producer = (this.kafka as any).producer()
+
             await (this.producer as any).connect()
         } catch (e) {
             console.log(e)

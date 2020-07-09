@@ -25,6 +25,10 @@ export class ConsumerClient {
             brokers: brokers
         })
 
+        this.consumer = (this.kafka as any).producer({
+            groupId: this.serviceName
+        })
+
     }
 
     /**
@@ -33,9 +37,7 @@ export class ConsumerClient {
      */
     public async init() {
         try {
-            this.consumer = (this.kafka as any).producer({
-                groupId: this.serviceName
-            })
+            
             await (this.consumer as any).connect()
 
             let topicSubscriptionPromises: Promise<any>[] = this.topics.map(topic => (this.consumer as any).subscribe({ topic: topic }), this)
