@@ -8,17 +8,19 @@ const uid = require('random-token');
 export class ProducerClient {
     kafka: Object
     producer: Object = {}
+    clientId: string = ""
+
     /**
      * Construct a new events' publisher
      * @param serviceName replica set associated name
      */
     constructor(public serviceName: Services) {
 
-        const clientId = serviceName + "-" + uid(4)
+        this.clientId = serviceName + "-" + uid(4)
         const brokers = (process.env.KAFKA_BROKERS as any).split(" ")
 
         this.kafka = new Kafka({
-            clientId: clientId,
+            clientId: this.clientId,
             brokers: brokers
         })
 

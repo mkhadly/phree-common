@@ -9,6 +9,7 @@ const uid = require('random-token');
 export class ConsumerClient {
     kafka: Object
     consumer: Object = {}
+    clientId: string = ""
 
     /**
      * Construct a new event's listener
@@ -17,11 +18,11 @@ export class ConsumerClient {
      */
     constructor(public serviceName: Services, public topics: Topic[]) {
 
-        const clientId = serviceName + "-" + uid(4)
+        this.clientId = serviceName + "-" + uid(4)
         const brokers = (process.env.KAFKA_BROKERS as any).split(" ")
 
         this.kafka = new Kafka({
-            clientId: clientId,
+            clientId: this.clientId,
             brokers: brokers
         })
 
