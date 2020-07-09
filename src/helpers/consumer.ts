@@ -25,7 +25,7 @@ export class ConsumerClient {
             brokers: brokers
         })
 
-        this.consumer = (this.kafka as any).producer({
+        this.consumer = (this.kafka as any).consumer({
             groupId: this.serviceName
         })
 
@@ -37,12 +37,13 @@ export class ConsumerClient {
      */
     public async init() {
         try {
-            
+
             await (this.consumer as any).connect()
 
             let topicSubscriptionPromises: Promise<any>[] = this.topics.map(topic => (this.consumer as any).subscribe({ topic: topic }), this)
 
-            await Promise.all(topicSubscriptionPromises)
+            if (topicSubscriptionPromises.length > 0)
+                await Promise.all(topicSubscriptionPromises)
         }
         catch (e) {
             console.log(e)
