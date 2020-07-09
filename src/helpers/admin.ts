@@ -38,9 +38,14 @@ export class AdminClient {
                 numPartition,
                 replicationFactor
             }))
-
+            
+            //define admin cient
+            this.admin = (this.kafka as any).admin()
+            
+            //connect to cluster
             await (this.admin as any).connect()
-
+            
+            //create topics
             await (this.admin as any).createTopics({
                 waitForLeaders: true,
                 topics: allTopics
