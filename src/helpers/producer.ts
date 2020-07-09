@@ -53,7 +53,7 @@ export class ProducerClient {
             await (this.producer as any).send({
                 topic: msg.topic,
                 messages: [
-                    { key: msg.userId, value: JSON.stringify(msg.payload) },
+                    { key: msg.userId.toString(), value: JSON.stringify(msg.payload) },
                 ],
             })
         } catch (e) {
