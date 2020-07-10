@@ -43,8 +43,11 @@ export class ConsumerClient {
 
             let topicSubscriptionPromises: Promise<any>[] = this.topics.map(topic => (this.consumer as any).subscribe({ topic: topic }), this)
 
-            if (topicSubscriptionPromises.length > 0)
+            if (topicSubscriptionPromises.length > 0){
                 await Promise.all(topicSubscriptionPromises)
+                console.log("[CONSUMER] intialized to topics",this.topics)
+            }
+                
         }
         catch (e) {
             console.log(e)
