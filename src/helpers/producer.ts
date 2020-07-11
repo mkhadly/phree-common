@@ -50,12 +50,16 @@ export class ProducerClient {
      */
     public async sendMessage(msg: Message) {
         try {
-            await (this.producer as any).send({
+            const o = {
                 topic: msg.topic,
                 messages: [
                     { key: msg.userId.toString(), value: JSON.stringify(msg.payload) },
                 ],
-            })
+            }
+
+            await (this.producer as any).send(o)
+            console.log("[PRODUCER] Send:", o)
+
         } catch (e) {
             console.log(e)
             throw new Error("[PRODUCER] Error while sending a message")

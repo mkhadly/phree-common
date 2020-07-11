@@ -90,13 +90,8 @@ export class ConsumerClient {
     }
 
     private async eachMsgHandler(handler: Function, msgTopic: Topic, { topic, partition, message }: any) {
-        console.log("REC", msgTopic,partition, {
-            key: message.key.toString(),
-            value: message.value.toString(),
-            headers: message.headers,
-        })
         if (msgTopic == topic) {
-            console.log("Handler Called")
+            console.log("[CONSUMER] Recieved:", message)
             handler(JSON.parse(message.value.toString()))
         }
 
