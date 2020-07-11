@@ -11,3 +11,5 @@ export * from './errors/customError'
 
 export * from './types/general'
 export * from './types/topic'
+export * from './types/message'
+export * from './types/notification'
