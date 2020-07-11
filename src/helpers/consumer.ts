@@ -89,8 +89,8 @@ export class ConsumerClient {
         await (this.consumer as any).disconnect()
     }
 
-    private async eachMsgHandler(handler: Function, topic: Topic, { msgTopic, partition, message }: any) {
-        console.log("REC", msgTopic, {
+    private async eachMsgHandler(handler: Function, msgTopic: Topic, { topic, partition, message }: any) {
+        console.log("REC", msgTopic,partition, {
             key: message.key.toString(),
             value: message.value.toString(),
             headers: message.headers,
