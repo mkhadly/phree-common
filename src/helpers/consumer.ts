@@ -10,7 +10,7 @@ export class ConsumerClient {
     kafka: Object
     consumer: Object = {}
     clientId: string = ""
-    consumerInitialized:boolean = false
+    consumerInitialized: boolean = false
 
     /**
      * Construct a new event's listener
@@ -44,12 +44,12 @@ export class ConsumerClient {
 
             let topicSubscriptionPromises: Promise<any>[] = this.topics.map(topic => (this.consumer as any).subscribe({ topic: topic }), this)
 
-            if (topicSubscriptionPromises.length > 0){
+            if (topicSubscriptionPromises.length > 0) {
                 await Promise.all(topicSubscriptionPromises)
-                console.log("[CONSUMER] intialized to topics",this.topics)
+                console.log("[CONSUMER] intialized to topics", this.topics)
             }
-            this.consumerInitialized=true
-                
+            this.consumerInitialized = true
+
         }
         catch (e) {
             console.log(e)
@@ -64,14 +64,15 @@ export class ConsumerClient {
      * @param handler topic callback
      */
     public async listen(topic: Topic, handler: Function) {
-        
-        if (!(this.topics.includes(topic)))
-            throw new Error("[CONSUMER] Error try to handle a non-subscribed topic")
-
-        if (!this.consumerInitialized)
-            throw new Error("[CONSUMER] consumer not initlized yet")
 
         try {
+            if (!(this.topics.includes(topic)))
+                throw new Error("[CONSUMER] Error try to handle a non-subscribed topic")
+
+            if (!this.consumerInitialized)
+                throw new Error("[CONSUMER] consumer not initlized yet")
+
+
             await (this.consumer as any).run({
                 eachMessage: this.eachMsgHandler.bind(null, handler, topic),
             })
