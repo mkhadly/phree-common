@@ -16,6 +16,22 @@ const initDB = async (app: express.Application, config: DBConfig) => {
 }
 
 
+const dbInitilizing = (config: DBConfig) => new Promise((resolve, reject) => {
+    var poll = setInterval(async () => {
+        try{
+        await mongoose.connect(`mongodb://${config.host}:${config.port}/${config.db}`)
+
+        clearInterval(poll)
+        resolve(null)
+
+        }catch(e){
+            console.log("Can't connect to MongoDB, Trying again in 5 sec")
+        }
+
+    }, 5000)
+});
+
 export {
-    initDB
+    initDB,
+    dbInitilizing
 }
