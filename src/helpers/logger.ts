@@ -11,12 +11,34 @@ var options = {
     },
 };
 
+const enumerateErrorFormat = winston.format(info => {
+    if ((info as any).message instanceof Error) {
+      info.message = Object.assign({
+        message: (info.message as any).message,
+        stack: (info.message as any).stack
+      }, info.message);
+    }
+  
+    if (info instanceof Error) {
+      return Object.assign({
+        message: info.message,
+        stack: info.stack
+      }, info);
+    }
+  
+    return info;
+  });
+
 var logger = winston.createLogger({
     defaultMeta: { service: (process.env.POD_NAME as string) },
+    format: winston.format.combine(
+        enumerateErrorFormat(),
+        winston.format.json()
+      ),
     transports: [
         new winston.transports.Console(options.console)
     ],
-    exitOnError: false, // do not exit on handled exceptions
+    exitOnError: false,
 });
 
 (logger as any)['streamMorgan'] = {
