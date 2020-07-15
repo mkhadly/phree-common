@@ -5,9 +5,9 @@ const uid = require('random-token');
 import { UserToken } from '../types/general'
 
 
-export const generateAccessToken = (payload: UserToken) => jwt.sign(payload, process.env.JWT_SECRET,
+export const generateAccessToken = (payload: UserToken) => jwt.sign(payload, process.env.JWT_SECRET || "secret",
     {
-        expiresIn: process.env.JWT_EXPIRES_IN,
+        expiresIn: process.env.JWT_EXPIRES_IN || "1h",
         algorithm: 'HS512'
     }
 )
