@@ -12,8 +12,7 @@ const globalErrorHandler = (err: Error, req: express.Request, res: express.Respo
         /**
          * Global Error handling
          */
-        console.log(err)
-        logger.error(err)
+        logger.error(JSON.stringify(err))
         res.status(500).send({ 'message': "Invalid Request data" })
     } else {
         next()
