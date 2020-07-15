@@ -27,7 +27,7 @@ var logger = winston.createLogger({
             tokens.status(req, res),
             tokens.res(req, res, 'content-length'), '-',
             tokens['response-time'](req, res), 'ms',
-            
+
             'IP: ',
             req.ip,
 
@@ -35,7 +35,7 @@ var logger = winston.createLogger({
             req.headers['authorization'] && req.headers['authorization'].split('.').length > 0 ? JSON.parse(new Buffer(req.headers['authorization'].split('.')[1], 'base64').toString('ascii')).id.replace(/\n$/, '') : '',
 
             ' - Request Body:',
-            JSON.stringify(req.body),
+            tokens.url(req, res).includes('login') ? 'sensnsitive data suppressed' : JSON.stringify(req.body),
         ].join(' ')
     },
 
