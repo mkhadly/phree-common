@@ -2,7 +2,7 @@ import { Services } from '../types/general'
 import { Message } from '../types/topic'
 import { Kafka } from 'kafkajs'
 const uid = require('random-token');
-
+import { logger } from './logger'
 
 
 export class ProducerClient {
@@ -35,8 +35,7 @@ export class ProducerClient {
 
             await (this.producer as any).connect()
         } catch (e) {
-            console.log(e)
-            throw new Error("[PRODUCER] Error while connecting to the kafka cluster")
+            logger.error("[PRODUCER] Error while connecting to the kafka cluster " + e)
         }
     }
 
@@ -58,11 +57,10 @@ export class ProducerClient {
             }
 
             await (this.producer as any).send(o)
-            console.log("[PRODUCER] Send:", o)
+            logger.info("[PRODUCER] Send: "+ o)
 
         } catch (e) {
-            console.log(e)
-            throw new Error("[PRODUCER] Error while sending a message")
+            logger.error("[PRODUCER] Error while sending a message "+e)
         }
     }
 

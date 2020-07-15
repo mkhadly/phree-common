@@ -1,12 +1,11 @@
 import { CustomError } from '../errors/customError'
 import * as express from 'express'
+import { logger } from '../helpers/logger'
 
 
 const globalErrorHandler = (err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    console.log(process.env.NODE_ENV)
     if (err) {
         if (err instanceof CustomError) {
-            const errorMsg = err.serialize()
             return res.status(err.status).send({ 'message': err.msg, "code": err.code })
         }
 
@@ -14,7 +13,7 @@ const globalErrorHandler = (err: Error, req: express.Request, res: express.Respo
          * Global Error handling
          */
 
-        console.log(err)
+        logger.error(err)
         res.status(500).send({ 'message': "Invalid Request data" })
     } else {
         next()

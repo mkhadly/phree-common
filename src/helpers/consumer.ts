@@ -2,6 +2,7 @@ import { Services } from '../types/general'
 import { Topic } from '../types/topic'
 import { Kafka } from 'kafkajs'
 const uid = require('random-token');
+import { logger } from './logger'
 
 
 
@@ -46,14 +47,14 @@ export class ConsumerClient {
 
             if (topicSubscriptionPromises.length > 0) {
                 await Promise.all(topicSubscriptionPromises)
-                console.log("[CONSUMER] intialized to topics", this.topics)
+                logger.info("[CONSUMER] intialized to topics" + this.topics)
+
             }
             this.consumerInitialized = true
 
         }
         catch (e) {
-            console.log(e)
-            throw new Error("[CONSUMER] Error while conencting/subscribing to topics")
+            logger.error("[CONSUMER] Error while conencting/subscribing to topics" + e)
         }
 
     }
@@ -77,8 +78,7 @@ export class ConsumerClient {
                 eachMessage: this.eachMsgHandler.bind(null, handler, topic),
             })
         } catch (e) {
-            console.log(e)
-            throw new Error("[CONSUMER] Error while handling a new incoming message")
+            logger.error("[CONSUMER] Error while handling a new incoming message" + e)
         }
     }
 
@@ -91,7 +91,7 @@ export class ConsumerClient {
 
     private async eachMsgHandler(handler: Function, msgTopic: Topic, { topic, partition, message }: any) {
         if (msgTopic == topic) {
-            console.log("[CONSUMER] Recieved:", message.value.toString())
+            logger.error("[CONSUMER] Recieved:" + message.value.toString())
             handler(JSON.parse(message.value.toString()))
         }
 

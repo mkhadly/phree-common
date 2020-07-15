@@ -2,6 +2,7 @@ import { Services } from '../types/general'
 import { Topic } from '../types/topic'
 import { Kafka } from 'kafkajs'
 const uid = require('random-token');
+import { logger } from './logger'
 
 
 
@@ -58,8 +59,7 @@ export class AdminClient {
             return topicsCreated
         }
         catch (e) {
-            console.log(e)
-            throw new Error("[ADMIN] Error while creating topics")
+            logger.error("[ADMIN] Error while creating topics" + e)
         }
 
     }
