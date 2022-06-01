@@ -28,7 +28,7 @@
     "kafkajs": "^1.12.0",
     "mongoose": "^5.9.20",
     "random-token": "^0.0.8",
-    "sharp": "^0.25.4",
+    "sharp": "^0.30.5",
     "ts-node-dev": "^1.0.0-pre.49",
     "winston": "^3.3.3"
   }
